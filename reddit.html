@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Document</title>
+</head>
+<body>
+<h1>Reddit</h1>
+<div id="posts"></div>
+<script>
+    fetch('https://www.reddit.com/r/montreal.json')
+    .then(function(res) {
+        return res.json();
+    })
+    .then(function(data) {
+        var $posts = document.querySelector('#posts');
+
+        data.data.children.forEach(function(post) {
+            var $post = document.createElement('p');
+            $post.innerText = post.data.title;
+
+            $posts.appendChild($post);
+        });
+    })
+</script>
+</body>
+</html>
