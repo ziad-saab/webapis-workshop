@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Holidays!</title>
+</head>
+<body>
+<h1>Holidays App</h1>
+<div id="app"></div>
+<script>
+    var API_KEY = 'FILL IN YOUR API KEY HERE!!';
+    var $app = document.querySelector('#app');
+
+    fetch(`https://holidayapi.com/v1/holidays?key=${API_KEY}&country=CA&year=2017&month=04`)
+    .then(function(response) {
+        return response.json(); // Promise for the JSON
+    })
+    .then(function(data) {
+        var $ul = document.createElement('ul'); // Create a list (UL)
+        data.holidays.forEach(function(holiday) {
+            var $item = document.createElement('li'); // Create a list item (LI)
+            $item.innerHTML = `${holiday.name} was on ${holiday.date}`; // Set the HTML of the list item
+            $ul.appendChild($item); // Add the LI to the UL
+        });
+        $app.appendChild($ul); // Add the UL to the page
+    })
+    .catch(function(error) {
+        console.error('There was an error while fetching holidays', error.stack);
+    });
+</script>
+</body>
+</html>
